@@ -1,17 +1,16 @@
-module.exports = (err, req, res, _next) => {
+module.exports = (err, _req, res, _next) => {
   if (err.isJoi) {
-    const status = err.details[0].type;
-
-    return res.status(status)
+    return res.status(400)
       .json({ message: err.details[0].message });
   }
 
-  const statusByErrorCode = {
-    notFound: 404,
-    alreadyExists: 409,
-  };
+  if (err.statusCode) {
+    return res.status(err.statusCode).json({
+      error: { message: err.message },
+    });
+  }
 
-  const status = statusByErrorCode[err.code] || 500;
-
-  res.status(status).json({ message: err.message });
+  return res.status(500).json({
+    error: { message: `Internal server error: ${err.message}` },
+  });
 };
