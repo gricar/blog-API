@@ -5,6 +5,6 @@ const validateNewUser = require('../middlewares/validateNewUser');
 
 const userRoute = express.Router();
 
-userRoute.post('/user', validateNewUser, user.create);
+userRoute.post('/', validateNewUser, user.create);
 
 module.exports = userRoute;
