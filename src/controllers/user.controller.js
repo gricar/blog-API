@@ -5,9 +5,16 @@ const create = async (req, res, next) => {
 
   if (token.error) return next(token.error);
 
-  res.status(201).json({ token });
+  return res.status(201).json({ token });
+};
+
+const getAll = async (req, res) => {
+  const allUsers = await user.getAll();
+
+  return res.status(200).json(allUsers);
 };
 
 module.exports = {
   create,
+  getAll,
 };
