@@ -30,11 +30,6 @@ const create = async ({ title, content, categoryIds }, userId) => {
       { postId: post.dataValues.id, categoryId },
       { transaction: t },
       )));
-
-    /* await PostCategory.bulkCreate(
-      { postId: post.dataValues.id, categoryId: categoryIds[0] },
-      { transaction: t },
-      ); */
     
     await t.commit();
 
