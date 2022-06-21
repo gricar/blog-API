@@ -12,6 +12,9 @@ const create = async ({ name }) => {
   return Category.create({ name });
 };
 
+const getAll = () => Category.findAll();
+
 module.exports = {
   create,
+  getAll,
 };
