@@ -6,6 +6,7 @@ const app = express();
 app.use(express.json());
 
 app.use(require('./routers/login'));
+app.use(require('./routers/user'));
 
 app.use(require('./middlewares/error'));
 
