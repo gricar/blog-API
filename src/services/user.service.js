@@ -37,8 +37,19 @@ const findById = async (id) => {
   return user;
 };
 
+const findByEmail = async (email) => {
+  const user = await User.findOne({ where: { email } }, {
+    attributes: { exclude: ['password'] },
+  });
+
+  if (!user) return userDoesntExists;
+
+  return user;
+};
+
 module.exports = {
   create,
   getAll,
   findById,
+  findByEmail,
 };

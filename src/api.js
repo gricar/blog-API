@@ -10,6 +10,7 @@ app.use(express.json());
 app.use('/login', require('./routers/login'));
 app.use('/user', require('./routers/user'));
 app.use('/categories', require('./routers/categories'));
+app.use('/post', require('./routers/blogPosts'));
 
 app.use(error);
 

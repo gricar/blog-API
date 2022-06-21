@@ -12,7 +12,9 @@ module.exports = (req, _res, next) => {
   }
 
   try {
-    jwt.verify(token, JWT_SECRET);
+    const decoded = jwt.verify(token, JWT_SECRET);
+    
+    req.user = decoded;
 
     return next();
   } catch (err) {
