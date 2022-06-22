@@ -18,5 +18,5 @@ app.all('*', (req, res) => res.status(404).json({ message: `Route '${req.path}' 
 
 app.use(error);
 
-// a ser utilizada pelo arquivo `src/server.js`
+// a ser utilizada pelo arquivo `server.js`
 module.exports = app;
