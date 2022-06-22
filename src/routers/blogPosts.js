@@ -5,8 +5,7 @@ const { auth, validateNewPost } = require('../middlewares');
 
 const blogPostsRoute = express.Router();
 
-blogPostsRoute.use([auth]);
-blogPostsRoute.post('/', validateNewPost, blogPosts.create);
-blogPostsRoute.get('/', blogPosts.getAll);
+blogPostsRoute.post('/', auth, validateNewPost, blogPosts.create);
+blogPostsRoute.get('/', auth, blogPosts.getAll);
 
 module.exports = blogPostsRoute;
