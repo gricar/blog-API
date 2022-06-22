@@ -1,7 +1,7 @@
 require('express-async-errors');
 const express = require('express');
 
-const { error } = require('./middlewares');
+const { auth, error } = require('./middlewares');
 
 const app = express();
 
@@ -9,6 +9,8 @@ app.use(express.json());
 
 app.use('/login', require('./routers/login'));
 app.use('/user', require('./routers/user'));
+
+app.use([auth]);
 app.use('/categories', require('./routers/categories'));
 app.use('/post', require('./routers/blogPosts'));
 
