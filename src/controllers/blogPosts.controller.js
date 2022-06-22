@@ -17,7 +17,16 @@ const getAll = async (req, res) => {
   return res.status(200).json(allPosts);
 };
 
+const findById = async (req, res, next) => {
+  const post = await blogPosts.getById(req.params.id);
+
+  if (post.error) return next(post.error);
+
+  return res.status(200).json(post);
+};
+
 module.exports = {
   create,
   getAll,
+  findById,
 };

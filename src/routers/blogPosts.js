@@ -7,5 +7,6 @@ const blogPostsRoute = express.Router();
 
 blogPostsRoute.post('/', auth, validateNewPost, blogPosts.create);
 blogPostsRoute.get('/', auth, blogPosts.getAll);
+blogPostsRoute.get('/:id', auth, blogPosts.findById);
 
 module.exports = blogPostsRoute;

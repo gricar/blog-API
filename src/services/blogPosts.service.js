@@ -7,6 +7,7 @@ const { findById } = require('./categories.service');
 const sequelize = new Sequelize(config.development);
 
 const categoryDoesntExists = { error: { statusCode: 400, message: '"categoryIds" not found' } };
+const postDoesntExists = { error: { statusCode: 404, message: 'Post does not exist' } };
 
 const allCategoriesExist = async (categoryIds) => {
   const categories = await Promise.all(categoryIds.map((id) => findById(id)));
@@ -51,7 +52,21 @@ const getAll = async () => {
   return allPosts;
 };
 
+const getById = async (id) => {
+  const post = await BlogPost.findByPk(id, {
+    include: [
+      { model: User, as: 'user', attributes: { exclude: ['password'] } },
+      { model: Category, as: 'categories', through: { attributes: [] } },
+    ],
+  });
+
+  if (!post) return postDoesntExists;
+
+  return post;
+};
+
 module.exports = {
   create,
   getAll,
+  getById,
 };
