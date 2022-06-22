@@ -18,6 +18,5 @@ app.all('*', (req, res) => res.status(404).json({ message: `Route '${req.path}' 
 
 app.use(error);
 
-// É importante exportar a constante `app`,
-// para que possa ser utilizada pelo arquivo `src/server.js`
+// a ser utilizada pelo arquivo `src/server.js`
 module.exports = app;
