@@ -1,11 +1,11 @@
 const express = require('express');
 
 const blogPosts = require('../controllers/blogPosts.controller');
-const { validateNewPost } = require('../middlewares');
+const { auth, validateNewPost } = require('../middlewares');
 
 const blogPostsRoute = express.Router();
 
-blogPostsRoute.post('/', validateNewPost, blogPosts.create);
-blogPostsRoute.get('/', blogPosts.getAll);
+blogPostsRoute.post('/', auth, validateNewPost, blogPosts.create);
+blogPostsRoute.get('/', auth, blogPosts.getAll);
 
 module.exports = blogPostsRoute;
