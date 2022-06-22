@@ -8,6 +8,6 @@ const blogPostsRoute = express.Router();
 blogPostsRoute.post('/', auth, validateNewPost, blogPosts.create);
 blogPostsRoute.get('/', auth, blogPosts.getAll);
 blogPostsRoute.get('/:id', auth, blogPosts.findById);
-blogPostsRoute.put('/:id', validatePostEdit, auth);
+blogPostsRoute.put('/:id', auth, validatePostEdit, blogPosts.update);
 
 module.exports = blogPostsRoute;
