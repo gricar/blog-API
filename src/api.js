@@ -12,6 +12,8 @@ app.use('/user', require('./routers/user'));
 app.use('/categories', require('./routers/categories'));
 app.use('/post', require('./routers/blogPosts'));
 
+app.all('*', (req, res) => res.status(404).json({ message: `Route '${req.path}' doesn't exist!` }));
+
 app.use(error);
 
 // É importante exportar a constante `app`,
