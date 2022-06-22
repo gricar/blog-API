@@ -14,7 +14,7 @@ app.use('/user', user);
 app.use('/categories', categories);
 app.use('/post', blogPosts);
 
-app.all('*', (req, res) => res.status(404).json({ message: `Route '${req.path}' doesn't exist!` }));
+// app.all('*', (req, res) => res.status(404).json({ message: `Route '${req.path}' doesn't exist!` }));
 
 app.use(error);
 
