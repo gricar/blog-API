@@ -1,3 +1,4 @@
+const { Op } = require('sequelize');
 const Sequelize = require('sequelize');
 const config = require('../database/config/config');
 
@@ -52,6 +53,27 @@ const getAll = async () => {
   return allPosts;
 };
 
+const getFilteredPosts = async (searchTerm) => {
+  const filteredPosts = await BlogPost.findAll({
+    where: {
+      [Op.or]: [
+        {
+          title: { [Op.substring]: searchTerm },
+        },
+        {
+          content: { [Op.substring]: searchTerm },
+        },
+      ],
+    },
+    include: [
+      { model: User, as: 'user', attributes: { exclude: ['password'] } },
+      { model: Category, as: 'categories', through: { attributes: [] } },
+    ],
+  });
+
+  return filteredPosts;
+};
+
 const getById = async (id) => {
   const post = await BlogPost.findByPk(id, {
     include: [
@@ -80,6 +102,7 @@ module.exports = {
   create,
   getAll,
   getById,
+  getFilteredPosts,
   update,
   remove,
 };

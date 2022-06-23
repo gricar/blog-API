@@ -20,12 +20,17 @@ const getAll = async (req, res) => {
 const getBySearchTerm = async (req, res) => {
   const { q: searchTerm } = req.query;
 
+  const filteredPosts = await blogPosts.getFilteredPosts(searchTerm);
+
+  return res.status(200).json(filteredPosts);
+
+  /* another alternative to filter posts
   const allPosts = await blogPosts.getAll();
 
   const filteredPosts = allPosts
     .filter(({ title, content }) => title.includes(searchTerm) || content.includes(searchTerm));
 
-  return res.status(200).json(filteredPosts);
+  return res.status(200).json(filteredPosts); */
 };
 
 const findById = async (req, res, next) => {
