@@ -24,8 +24,17 @@ const findById = async (req, res, next) => {
   return res.status(200).json(userData);
 };
 
+const remove = async (req, res) => {
+  const { id } = await user.findByEmail(req.user.userEmail);
+
+  await user.remove(id);
+
+  return res.status(204).end();
+};
+
 module.exports = {
   create,
   getAll,
   findById,
+  remove,
 };
