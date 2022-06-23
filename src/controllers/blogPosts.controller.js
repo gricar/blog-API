@@ -26,19 +26,17 @@ const findById = async (req, res, next) => {
 };
 
 const update = async (req, res, next) => {
-  const postId = req.params.id;
-  const { id: userId } = await findByEmail(req.user.userEmail);
-
-  const postValidation = await blogPosts.validateToUpdate(postId, userId);
-
-  if (postValidation.error) return next(postValidation.error);
-
-  const postUpdated = await blogPosts.update(postId, req.body);
-  console.log('postUpdated', postUpdated);
+  const postUpdated = await blogPosts.update(req.params.id, req.body);
 
   if (postUpdated.error) return next(postUpdated.error);
 
   return res.status(200).json(postUpdated);
+};
+
+const remove = async (req, res) => {
+  await blogPosts.remove(req.params.id);
+
+  return res.status(204).end();
 };
 
 module.exports = {
@@ -46,4 +44,5 @@ module.exports = {
   getAll,
   findById,
   update,
+  remove,
 };

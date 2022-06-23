@@ -5,6 +5,7 @@ const validateNewCategory = require('./validateNewCategory');
 const validateNewPost = require('./validateNewPost');
 const validateNewUser = require('./validateNewUser');
 const validatePostEdit = require('./validatePostEdit');
+const validatePostOwner = require('./validatePostOwner');
 
 module.exports = {
   auth,
@@ -14,4 +15,5 @@ module.exports = {
   validateNewPost,
   validateNewUser,
   validatePostEdit,
+  validatePostOwner,
 };

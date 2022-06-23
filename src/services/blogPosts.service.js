@@ -8,7 +8,6 @@ const sequelize = new Sequelize(config.development);
 
 const categoryDoesntExists = { error: { statusCode: 400, message: '"categoryIds" not found' } };
 const postDoesntExists = { error: { statusCode: 404, message: 'Post does not exist' } };
-const unauthorizedUser = { error: { statusCode: 401, message: 'Unauthorized user' } };
 
 const allCategoriesExist = async (categoryIds) => {
   const categories = await Promise.all(categoryIds.map((id) => findById(id)));
@@ -66,17 +65,6 @@ const getById = async (id) => {
   return post;
 };
 
-const validateToUpdate = async (postId, userId) => {
-  const postExist = await getById(postId);
-
-  if (postExist.error) return postDoesntExists;
-
-  // check if is the editor user is who create the post 
-  if (postExist.userId !== userId) return unauthorizedUser;
-
-  return postExist;
-};
-
 const update = async (postId, { title, content }) => {
   await BlogPost.update(
       { title, content },
@@ -86,10 +74,12 @@ const update = async (postId, { title, content }) => {
   return getById(postId);
 };
 
+const remove = (id) => BlogPost.destroy({ where: { id } });
+
 module.exports = {
   create,
   getAll,
   getById,
-  validateToUpdate,
   update,
+  remove,
 };
