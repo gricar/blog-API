@@ -17,6 +17,17 @@ const getAll = async (req, res) => {
   return res.status(200).json(allPosts);
 };
 
+const getBySearchTerm = async (req, res) => {
+  const { q: searchTerm } = req.query;
+
+  const allPosts = await blogPosts.getAll();
+
+  const filteredPosts = allPosts
+    .filter(({ title, content }) => title.includes(searchTerm) || content.includes(searchTerm));
+
+  return res.status(200).json(filteredPosts);
+};
+
 const findById = async (req, res, next) => {
   const post = await blogPosts.getById(req.params.id);
 
@@ -42,6 +53,7 @@ const remove = async (req, res) => {
 module.exports = {
   create,
   getAll,
+  getBySearchTerm,
   findById,
   update,
   remove,
