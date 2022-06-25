@@ -1,0 +1,72 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Blog API",
+    "description": "API for producing content for a blog",
+    "contact": {
+      "name": "API Support",
+      "url": "https://gricar.github.io/",
+      "email": "gabriel.rodrigues.ricardo@outlook.com"
+    },
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/login": {
+      "post": {
+        "summary": "Create a new user",
+        "tags": ["login"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#components/schemas/login"
+              },
+              "examples": {
+                "User": {
+                  "summary": "login",
+                  "value": {
+                    "email": "test@email.com",
+                    "password": "123456789"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "400": {
+            "description": "Some required fields are missing"
+          },
+          "401": {
+            "description": "Wrong password"
+          },
+          "200": {
+            "description": "token"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "security": {
+        "bearerAuth": {
+          "type": "http",
+          "scheme": "bearer",
+          "bearerFormat": "JWT"
+        }
+      },
+      "login": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}
